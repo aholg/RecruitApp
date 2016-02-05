@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Webshop - login and register page</title>
+    </h:head>
+    <h:body style="margin: 0 auto">
+        <div style="width: 100%;border-bottom: 1px black solid">
+        </div>
+        <center>
+            <br />
+            <br /><br />
+            <h3><u>LOGIN</u></h3>
+            
+            <h:form>
+                Username : <h:inputText id="login_user"  value="#{accountManager.loginUsername}"    size="40" required="true" label="Username" > </h:inputText>  
+                <br /> <br />
+                Password : <h:inputText id="login_pass"  value="#{accountManager.loginPassword}"    size="40" required="true" label="Password" > </h:inputText> 
+                <br /><br />
+                <h:commandButton value="Login" action="#{accountManager.loginUser()}" />
+            </h:form>
+            <br /><br />
+            <h3><u>Register</u></h3>
+                        <h:form>
+                            Username : <h:inputText id="register_user"  value="#{accountManager.registerUsername}"    size="40" required="true" label="Username" > </h:inputText>  
+                <br /> <br />
+                Password : <h:inputText id="register_pass"  value="#{accountManager.registerPassword}"    size="40" required="true" label="Password" > </h:inputText> 
+                <br /><br />
+                <h:commandButton value="Register" action="#{accountManager.registerUser()}" />
+            </h:form>
+            <br />
+        </center>
+    
+    </h:body>
+</html>
