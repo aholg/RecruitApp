@@ -20,10 +20,10 @@ public interface PersonDTO {
     String getUsername();
     String getRole();
    
-    void setName();
-    void setSSN();
-    void setEmail();
-    void setPassword();
-    void setUsername();
-    void setRole();
+   /* void setName(String name);
+    void setSSN(String ssn);
+    void setEmail(String email);
+    void setPassword(String password);
+    void setUsername(String username);
+    void setRole(String role);*/
 }
