@@ -3,36 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
+
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Anton
  */
-public class Person implements PersonDTO{
-    private int personID;
+@Entity
+public class Person implements PersonDTO, Serializable {
+
     private String name;
     private String ssn;
     private String email;
     private String password;
     private String username;
     private String role;
-    
-    Person(int personID,String name,String ssn,
-            String email,String password,String username,String role){
-        this.personID=personID;
-        this.name=name;
-        this.ssn=ssn;
-        this.email=email;
-        this.password=password;
-        this.username=username;
-        this.role=role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int personID;
+
+    Person(int personID, String name, String ssn,
+            String email, String password, String username, String role) {
+
+        this.name = name;
+        this.ssn = ssn;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.role = role;
+
+        this.personID = personID;
     }
 
     @Override
     public int getPersonID() {
-       return personID;
+        return personID;
     }
 
     @Override
@@ -42,7 +53,7 @@ public class Person implements PersonDTO{
 
     @Override
     public String getSSN() {
-       return ssn;
+        return ssn;
     }
 
     @Override
@@ -64,7 +75,5 @@ public class Person implements PersonDTO{
     public String getRole() {
         return role;
     }
-
-
 
 }
