@@ -10,7 +10,7 @@ package model;
  *
  * @author Anton
  */
-public interface AccountDTO {
+public interface PersonDTO {
     
     int getPersonID();
     String getName();
