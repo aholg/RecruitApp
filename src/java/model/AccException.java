@@ -1,4 +1,4 @@
-package Model;
+package model;
 /**
  * 
  * A exception class purely used for exceptions surround account matters
