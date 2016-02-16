@@ -28,16 +28,16 @@ public class Person implements PersonDTO, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int personID;
 
-    public Person(String password, String username) {
+    public Person(String username) {
 
-        this.name = name;
-        this.ssn = ssn;
-        this.email = email;
-        this.password = password;
+       // this.name = name;
+        //this.ssn = ssn;
+        //this.email = email;
+        //this.password = password;
         this.username = username;
-        this.role = role;
+        //this.role = role;
 
-        this.personID = personID;
+        //this.personID = personID;
     }
 
     @Override

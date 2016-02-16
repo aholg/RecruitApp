@@ -68,13 +68,7 @@ public class AcctManager implements Serializable{
         transactionFailure = e;
     }
     
-    public String login(){ 
-        return "";
-    }
     
-    public String createPerson(){
-        return "";
-    }
     
     public void setRegisterUsername(String registerUsername){
         this.registerUsername = registerUsername;
@@ -128,16 +122,10 @@ public class AcctManager implements Serializable{
     public String loginUser(){
        startConversation();
         
-       //check if the login process went good otherwise throw an exception
-       try {
-            if(AccHandler.loginAccount(this.getLoginUsername(), this.getLoginPassword()) == false){
-                handleException(new Exception("Please make sure Username and Password are correct"));
-                return jsf22Bugfix();
-            }
-        } catch (AccException ex) {
-            handleException(ex);
-            return jsf22Bugfix();
-        }
+       if(accHandler.loginAccount(this.getLoginUsername(), this.getLoginPassword()) == null){
+           handleException(new Exception("Please make sure Username and Password are correct"));
+           return jsf22Bugfix();
+       }
         
         // set up a http session and set username as an attribute
         HttpSession session = SessionData.getSession();
@@ -169,7 +157,7 @@ public class AcctManager implements Serializable{
         }
         try{
             // call createAccount in the accountHandler to create an account.
-            AccHandler.createAccount(this.getRegisterUsername(),this.getRegisterPassword());
+            accHandler.createAccount(this.getRegisterUsername(),this.getRegisterPassword());
         }
         catch(AccException ex){
             handleException(ex);

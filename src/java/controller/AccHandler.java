@@ -11,6 +11,9 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Person;
+import model.Account;
+import model.AccountDTO;
+import model.AccException;
 
 /**
  *
@@ -23,15 +26,29 @@ public class AccHandler {
     private EntityManager em;
     
     public Person loginAccount(String username,String password){
-       Person p= em.find(Person.class, username);
-       if( p.getPassword()==password){
+       
+       Account acc=em.find(Account.class,username);
+       if(acc.getPassword().equalsIgnoreCase(password)){
+           Person p= em.find(Person.class, username);
            return p;
        }else return null;
     }
-   public void createAccount(String username,String password){
-       
-       Person p=new Person(username,password);
-   }
+    public void createAccount(String username, String password) throws AccException {
+        AccountDTO tempacc = em.find(Account.class, username);
+        
+        if (tempacc != null) {
+            if (tempacc.getUsername().equalsIgnoreCase(username)) {
+                throw new AccException("This username is already taken");
+            }  
+        }
+        Account account = new Account(username, password);
+        Person person = new Person(username);
+        em.persist(account);
+        em.persist(person);
+
+    }
+    
+    
     public boolean checkRole(String username){
         Person person=em.find(Person.class, username);
        
@@ -40,4 +57,5 @@ public class AccHandler {
     public boolean checkUserAvailability(String username){
         return em.find(Person.class, username)==null;
     }
+    
 }
