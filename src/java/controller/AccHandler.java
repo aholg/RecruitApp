@@ -43,6 +43,7 @@ public class AccHandler {
         }
         Account account = new Account(username, password);
         Person person = new Person(username);
+        person.setRole("Applicant");
         em.persist(account);
         em.persist(person);
 

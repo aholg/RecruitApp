@@ -6,16 +6,16 @@
 
     
         <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>index.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{AcctManager.Validity}</from-action>
-            <from-outcome>Fail</from-outcome>
-            <to-view-id>/Error.xhtml</to-view-id>
+            <!--<from-action>#{AcctManager.login}</from-action>-->
+            <from-outcome>fail</from-outcome>
+            <to-view-id>Error.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-action>#{AcctManager.Validity}</from-action>
-            <from-outcome>Success</from-outcome>
-            <to-view-id>/Applicant.xhtml</to-view-id>
+            <!--<from-action>#{AcctManager.login}</from-action>-->
+            <from-outcome>success</from-outcome>
+            <to-view-id>Applicant.xhtml</to-view-id>
         </navigation-case>
         
     </navigation-rule>

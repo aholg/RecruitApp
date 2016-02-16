@@ -124,15 +124,15 @@ public class AcctManager implements Serializable{
             request.login(this.loginUsername, this.loginPassword);
         } catch (ServletException e) {
              loginResult="Fail";
-            context.addMessage(null, new FacesMessage("Login failed."+ loginUsername + loginPassword));
-            return "error";
+            context.addMessage(null, new FacesMessage("Login failed." +e.getMessage()+ loginUsername + loginPassword));
+            return "fail";
         }
         loginResult="Success";
-       if(accHandler.checkRole(loginUsername)==true){
-           return "Recruiter.xhtml?faces-redirect=true";
+       //if(accHandler.checkRole(loginUsername)==true){
+         //  return "Recruiter.xhtml?faces-redirect=true";
            
-       }else return "Applicant.xhtml?faces-redirect=true";
-        
+       //}else return "Applicant.xhtml?faces-redirect=true";
+        return "success";
 
         
     }
