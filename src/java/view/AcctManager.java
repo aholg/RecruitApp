@@ -13,6 +13,7 @@ package view;
 import model.SessionData;
 import controller.AccHandler;
 import java.io.Serializable;
+import java.security.MessageDigest;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -31,8 +32,7 @@ public class AcctManager implements Serializable{
     
     @EJB
     private AccHandler accHandler;
-    private Exception AccException;
-   
+    private Exception accountException;
     private AccHandler accountHandler;
     private String registerUsername;
     private String registerPassword;
@@ -43,6 +43,8 @@ public class AcctManager implements Serializable{
      @Inject
     private Conversation conversation;
     private Exception loginFailure;
+    private String loginResult;
+    
     public boolean isUserIsLoggedIn() {
         if(SessionData.getSession() == null){ //Check first if there even exists a session
             return false;
@@ -72,7 +74,9 @@ public class AcctManager implements Serializable{
         e.printStackTrace(System.err);
         transactionFailure = e;
     }
-    
+        public boolean getSuccess() {
+        return accountException == null;
+    }
     
     
     public void setRegisterUsername(String registerUsername){
@@ -113,22 +117,28 @@ public class AcctManager implements Serializable{
         return "";
     }
     public String login() {
+        startConversation();
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(this.loginUsername, this.loginPassword);
         } catch (ServletException e) {
-            
-            context.addMessage(null, new FacesMessage("Login failed."));
+             loginResult="Fail";
+            context.addMessage(null, new FacesMessage("Login failed."+ loginUsername + loginPassword));
             return "error";
         }
+        loginResult="Success";
        if(accHandler.checkRole(loginUsername)==true){
-           return "Recruiter.xhtml";
-       }else return "Applicant.xhtml";
+           return "Recruiter.xhtml?faces-redirect=true";
+           
+       }else return "Applicant.xhtml?faces-redirect=true";
         
 
         
     }
+    public String Validity() {
+    return loginResult;
+}
      /**
     * The method handles the login logic.
     * the method calls and passes entered username and password to
@@ -149,8 +159,8 @@ public class AcctManager implements Serializable{
        }
         
         // set up a http session and set username as an attribute
-        HttpSession session = SessionData.getSession();
-        session.setAttribute("username", getLoginUsername());
+       // HttpSession session = SessionData.getSession();
+      //  session.setAttribute("username", getLoginUsername());
 
         //reset the jsf fields 
         loginUsername="";
@@ -178,7 +188,7 @@ public class AcctManager implements Serializable{
         }
         try{
             // call createAccount in the accountHandler to create an account.
-            accHandler.createAccount(this.getRegisterUsername(),this.getRegisterPassword());
+            accHandler.createAccount(this.getRegisterUsername(),sha256(this.getRegisterPassword()));
         }
         catch(AccException ex){
             handleException(ex);
@@ -186,8 +196,8 @@ public class AcctManager implements Serializable{
         }
         
         // set up an session for the new user
-        HttpSession session = SessionData.getSession();
-        session.setAttribute("username", getRegisterUsername()); //Set session attribute
+       // HttpSession session = SessionData.getSession();
+       // session.setAttribute("username", getRegisterUsername()); //Set session attribute
 
         //clear the fields
         registerUsername ="";
@@ -212,7 +222,23 @@ public class AcctManager implements Serializable{
     }
     
     
-    
+    public static String sha256(String base) {
+    try{
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(base.getBytes("UTF-8"));
+        StringBuffer hexString = new StringBuffer();
+
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    } catch(Exception ex){
+       throw new RuntimeException(ex);
+    }
+}
     
     
     
