@@ -10,16 +10,20 @@ package view;
  *
  * @author angie
  */
-import controller.AccHandler;
-import model.AccException;
 import Session.SessionData;
+import controller.AccHandler;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.AccException;
 
 @Named("AcctManager")
 @ConversationScoped
@@ -107,7 +111,23 @@ public class AcctManager implements Serializable{
     private String jsf22Bugfix() {
         return "";
     }
-    
+    public String login() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            request.login(this.loginUsername, this.loginPassword);
+        } catch (ServletException e) {
+            
+            context.addMessage(null, new FacesMessage("Login failed."));
+            return "error";
+        }
+       if(accHandler.checkRole(loginUsername)==true){
+           return "Recruiter.xhtml";
+       }else return "Applicant.xhtml";
+        
+
+        
+    }
      /**
     * The method handles the login logic.
     * the method calls and passes entered username and password to
