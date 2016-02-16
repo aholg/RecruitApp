@@ -15,20 +15,20 @@
             <h3><u>LOGIN</u></h3>
 
             <h:form>
-                Username : <h:inputText id="login_user"  value="#{AccManager.loginUsername}"    size="40" required="true" label="Username" > </h:inputText>  
+                Username : <h:inputText id="login_user"  value="#{AcctManager.loginUsername}"    size="40" required="true" label="Username" > </h:inputText>  
                 <br /> <br />
-                Password : <h:inputText id="login_pass"  value="#{AccManager.loginPassword}"    size="40" required="true" label="Password" > </h:inputText> 
+                Password : <h:inputText id="login_pass"  value="#{AcctManager.loginPassword}"    size="40" required="true" label="Password" > </h:inputText> 
                 <br /><br />
-                <h:commandButton value="Login" action="#{AccManager.login()}" />
+                <h:commandButton value="Login" action="#{AcctManager.login()}" />
             </h:form>
             <br /><br />
             <h3><u>Register</u></h3>
             <h:form>
-                Username : <h:inputText id="register_user"  value="#{AccManager.registerUsername}"    size="40" required="true" label="Username" > </h:inputText>  
+                Username : <h:inputText id="register_user"  value="#{AcctManager.registerUsername}"    size="40" required="true" label="Username" > </h:inputText>  
                 <br /> <br />
-                Password : <h:inputText id="register_pass"  value="#{AccManager.registerPassword}"    size="40" required="true" label="Password" > </h:inputText> 
+                Password : <h:inputText id="register_pass"  value="#{AcctManager.registerPassword}"    size="40" required="true" label="Password" > </h:inputText> 
                 <br /><br />
-                <h:commandButton value="Register" action="#{AccManager.registerUser()}" />
+                <h:commandButton value="Register" action="#{AcctManager.registerUser()}" />
             </h:form>
             <br />
         </center>

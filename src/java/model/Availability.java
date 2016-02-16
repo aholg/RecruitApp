@@ -27,7 +27,7 @@ public class Availability implements Serializable,AvailabilityDTO {
     
     public Availability(String startDate,String endDate){
         availability=new Date();
-        availability.
+       // availability.
     }
     public int getId() {
         return id;

@@ -23,8 +23,8 @@ public class ApplicationListHandler {
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
     
-    public ArrayList<Application> getApplications(){
+    //public ArrayList<Application> getApplications(){
         
-    }
-    public ArrayList<Application> findApplications(availStart)
+   // }
+   // public ArrayList<Application> findApplications(availStart)
 }

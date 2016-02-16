@@ -10,7 +10,7 @@ package view;
  *
  * @author angie
  */
-import Session.SessionData;
+import model.SessionData;
 import controller.AccHandler;
 import java.io.Serializable;
 import javax.ejb.EJB;

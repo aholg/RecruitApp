@@ -61,12 +61,12 @@
     <security-role>
         <role-name>Recruiter</role-name>
     </security-role>
-    <security-role-mapping>
+    <!--<security-role-mapping>
         <role-name>Recruiter</role-name>
         <group-name>Recruiter</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>Applicant</role-name>
         <group-name>Applicant</group-name>
-    </security-role-mapping>
+    </security-role-mapping> -->
 </web-app>

@@ -1,5 +1,5 @@
 
-package Session;
+package model;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
