@@ -22,6 +22,16 @@ public class AccHandler {
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
     
+    public Person loginAccount(String username,String password){
+       Person p= em.find(Person.class, username);
+       if( p.getPassword()==password){
+           return p;
+       }else return null;
+    }
+   public void createAccount(String username,String password){
+       
+       Person p=new Person(username,password);
+   }
     public boolean checkRole(String username){
         Person person=em.find(Person.class, username);
        

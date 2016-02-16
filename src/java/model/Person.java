@@ -28,8 +28,7 @@ public class Person implements PersonDTO, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int personID;
 
-    Person(int personID, String name, String ssn,
-            String email, String password, String username, String role) {
+    public Person(String password, String username) {
 
         this.name = name;
         this.ssn = ssn;
@@ -74,6 +73,36 @@ public class Person implements PersonDTO, Serializable {
     @Override
     public String getRole() {
         return role;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name=name;
+    }
+
+    @Override
+    public void setSSN(String ssn) {
+       this.ssn=ssn;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email=email;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password=password;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username=username;
+    }
+
+    @Override
+    public void setRole(String role) {
+        this.role=role;
     }
 
 }
