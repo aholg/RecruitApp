@@ -32,8 +32,7 @@ public class AcctManager implements Serializable{
     @EJB
     private AccHandler accHandler;
     private Exception AccException;
-    @Inject
-    private Conversation conversation;
+   
     private AccHandler accountHandler;
     private String registerUsername;
     private String registerPassword;
@@ -41,7 +40,9 @@ public class AcctManager implements Serializable{
     private String loginPassword;
     private Exception transactionFailure;
     private boolean loggedIn = false;
-    
+     @Inject
+    private Conversation conversation;
+    private Exception loginFailure;
     public boolean isUserIsLoggedIn() {
         if(SessionData.getSession() == null){ //Check first if there even exists a session
             return false;
@@ -98,7 +99,7 @@ public class AcctManager implements Serializable{
         return registerPassword;
     }
     
-    public void setLoginPassword(String LoginPassword){
+    public void setLoginPassword(String loginPassword){
         this.loginPassword = loginPassword;
     }
     
@@ -206,7 +207,9 @@ public class AcctManager implements Serializable{
        return jsf22Bugfix();
     }
     
-    
+    public Exception getException() {
+        return loginFailure;
+    }
     
     
     

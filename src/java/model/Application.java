@@ -23,7 +23,10 @@ public class Application implements ApplicationDTO, Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int personID;
-   Application(int personID,CompetenceProfileDTO profile,String description){
+   public Application(){
+       
+   }
+    public Application(int personID,CompetenceProfileDTO profile,String description){
        this.personID=personID;
        this.profile=profile;
        this.description=description;
@@ -37,6 +40,29 @@ public class Application implements ApplicationDTO, Serializable{
     public CompetenceProfileDTO getProfile() {
         return profile;
     }
-    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (int) personID;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Application)) {
+            return false;
+        }
+        Application other = (Application) object;
+        if (this.personID != other.personID) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Availability[ id=" + personID + " ]";
+    }
    
 }

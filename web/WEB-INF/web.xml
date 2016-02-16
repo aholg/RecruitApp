@@ -24,7 +24,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>SecureConnection</web-resource-name>
-            <url-pattern>/Applicant</url-pattern>
+            <url-pattern>faces/Applicant</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
@@ -36,7 +36,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Recruiter page</web-resource-name>
-            <url-pattern>/Recruiter</url-pattern>
+            <url-pattern>faces/Recruiter</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
@@ -61,12 +61,5 @@
     <security-role>
         <role-name>Recruiter</role-name>
     </security-role>
-    <!--<security-role-mapping>
-        <role-name>Recruiter</role-name>
-        <group-name>Recruiter</group-name>
-    </security-role-mapping>
-    <security-role-mapping>
-        <role-name>Applicant</role-name>
-        <group-name>Applicant</group-name>
-    </security-role-mapping> -->
+  
 </web-app>

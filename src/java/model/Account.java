@@ -20,10 +20,14 @@ public class Account implements AccountDTO, Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
     private String password;
     private String role;
 
+    public Account(){
+        
+    }
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
@@ -31,6 +35,7 @@ public class Account implements AccountDTO, Serializable {
 
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -39,6 +44,7 @@ public class Account implements AccountDTO, Serializable {
         this.password = password;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -47,6 +53,7 @@ public class Account implements AccountDTO, Serializable {
         this.username = username;
     }
 
+    @Override
     public String getRole() {
         return role;
     }

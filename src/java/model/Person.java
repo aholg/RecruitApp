@@ -27,7 +27,9 @@ public class Person implements PersonDTO, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int personID;
-
+    public Person(){
+        
+    }
     public Person(String username) {
 
        // this.name = name;
@@ -104,5 +106,28 @@ public class Person implements PersonDTO, Serializable {
     public void setRole(String role) {
         this.role=role;
     }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (int) personID;
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Person)) {
+            return false;
+        }
+        Person other = (Person) object;
+        if (this.personID != other.personID) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Availability[ id=" + personID + " ]";
+    }
 }

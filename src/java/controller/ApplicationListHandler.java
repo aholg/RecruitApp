@@ -17,11 +17,11 @@ import model.Application;
  *
  * @author angie
  */
-@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-@Stateless
+//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//@Stateless
 public class ApplicationListHandler {
-    @PersistenceContext(unitName = "RecruitAppPU")
-    private EntityManager em;
+   // @PersistenceContext(unitName = "RecruitAppPU")
+    //private EntityManager em;
     
     //public ArrayList<Application> getApplications(){
         

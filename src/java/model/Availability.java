@@ -20,13 +20,15 @@ import javax.persistence.Id;
 @Entity
 public class Availability implements Serializable,AvailabilityDTO {
     private static final long serialVersionUID = 1L;
-    Date availability;
+    //Date availability;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
+    public Availability(){
+        
+    }
     public Availability(String startDate,String endDate){
-        availability=new Date();
+       // availability=new Date();
        // availability.
     }
     public int getId() {

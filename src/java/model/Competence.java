@@ -25,8 +25,10 @@ class Competence implements CompetenceDTO, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int competenceID;
     
-    
-    Competence(String name){
+    public Competence(){
+        
+    }
+   public Competence(String name){
         this.name=name;
     }
     @Override
@@ -37,5 +39,28 @@ class Competence implements CompetenceDTO, Serializable {
     public int getCompetenceID(){
         return competenceID;
     }
+        @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (int) competenceID;
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Competence)) {
+            return false;
+        }
+        Competence other = (Competence) object;
+        if (this.competenceID != other.competenceID) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Availability[ id=" + competenceID + " ]";
+    }
 }

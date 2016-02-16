@@ -15,7 +15,7 @@ import javax.inject.Inject;
  * @author angie
  */
 public class ApplicationListManager {
-    
+    /*
    private ApplicationListHandler applicationHandler;
    private Date startDate;
    private Date endDate;
@@ -77,5 +77,5 @@ public class ApplicationListManager {
     
     public int getyearsOfExperience(){
         return yearsOfExperience;
-    }
+    }*/
 }

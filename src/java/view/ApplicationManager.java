@@ -16,7 +16,7 @@ import javax.inject.Inject;
  * @author angie
  */
 public class ApplicationManager {
-    
+    /*
     private ApplyHandler applyHandler;
     private String descriptionText;
     private Exception transactionFailure;
@@ -54,5 +54,5 @@ public class ApplicationManager {
     }
     
     
-    
+    */
 }
