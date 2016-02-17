@@ -10,10 +10,11 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.Person;
+import model.AccException;
 import model.Account;
 import model.AccountDTO;
-import model.AccException;
+import model.Person;
+
 
 /**
  *
@@ -41,19 +42,24 @@ public class AccHandler {
                 throw new AccException("This username is already taken");
             }  
         }
+       
         Account account = new Account(username, password);
         Person person = new Person(username);
-        person.setRole("Applicant");
+        
+        //person.setRole("Applicant");
+        //person.setRole("Recruiter");
+        account.setRole("Recruiter");
         em.persist(account);
         em.persist(person);
+      
 
     }
     
     
     public boolean checkRole(String username){
-        Person person=em.find(Person.class, username);
+        Account acc=em.find(Account.class, username);
        
-        return person.getRole().equals("Recruiter");
+        return acc.getRole().equals("Recruiter");
     }
     public boolean checkUserAvailability(String username){
         return em.find(Person.class, username)==null;

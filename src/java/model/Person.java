@@ -22,11 +22,12 @@ public class Person implements PersonDTO, Serializable {
     private String ssn;
     private String email;
     private String password;
-    private String username;
-    private String role;
+    
+    //private String role;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int personID;
+    private String username;
+   // private int personID;
     public Person(){
         
     }
@@ -42,10 +43,10 @@ public class Person implements PersonDTO, Serializable {
         //this.personID = personID;
     }
 
-    @Override
+   /* @Override
     public int getPersonID() {
         return personID;
-    }
+    }*/
 
     @Override
     public String getName() {
@@ -71,11 +72,11 @@ public class Person implements PersonDTO, Serializable {
     public String getUsername() {
         return username;
     }
-
+/*
     @Override
     public String getRole() {
         return role;
-    }
+    }*/
 
     @Override
     public void setName(String name) {
@@ -101,15 +102,15 @@ public class Person implements PersonDTO, Serializable {
     public void setUsername(String username) {
         this.username=username;
     }
-
+/*
     @Override
     public void setRole(String role) {
         this.role=role;
-    }
+    }*/
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) personID;
+        hash += (username != null ? username.hashCode() : 0);
         return hash;
     }
 
@@ -120,7 +121,7 @@ public class Person implements PersonDTO, Serializable {
             return false;
         }
         Person other = (Person) object;
-        if (this.personID != other.personID) {
+        if (!this.username.equals(other.username)) {
             return false;
         }
         return true;
@@ -128,6 +129,6 @@ public class Person implements PersonDTO, Serializable {
 
     @Override
     public String toString() {
-        return "model.Availability[ id=" + personID + " ]";
+        return "model.Availability[ id=" + username + " ]";
     }
 }

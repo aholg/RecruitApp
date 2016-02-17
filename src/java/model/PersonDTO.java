@@ -12,18 +12,18 @@ package model;
  */
 public interface PersonDTO {
     
-    int getPersonID();
+    //int getPersonID();
     String getName();
     String getSSN();
     String getEmail();
     String getPassword();
     String getUsername();
-    String getRole();
+   // String getRole();
    
    void setName(String name);
     void setSSN(String ssn);
     void setEmail(String email);
     void setPassword(String password);
     void setUsername(String username);
-    void setRole(String role);
+   // void setRole(String role);
 }
