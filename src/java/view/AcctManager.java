@@ -9,7 +9,7 @@ package view;
  *
  * @author angie
  */
-import model.SessionData;
+
 import controller.AccHandler;
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -44,14 +44,6 @@ public class AcctManager implements Serializable {
     private Exception loginFailure;
     private String loginResult;
 
-    public boolean isUserIsLoggedIn() {
-        if (SessionData.getSession() == null) { //Check first if there even exists a session
-            return false;
-        }
-        Object session = SessionData.getSession().getAttribute("username"); // Check if there exists a username
-        String name = (String) session;
-        return name != null;
-    }
 
     private void startConversation() {
         if (conversation.isTransient()) {

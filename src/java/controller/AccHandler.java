@@ -27,14 +27,6 @@ public class AccHandler {
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
     
-    public Groups loginAccount(String username,String password){
-       
-       Account acc=em.find(Account.class,username);
-       if(acc.getPassword().equalsIgnoreCase(password)){
-           Groups grp= em.find(Groups.class, username);
-           return grp;
-       }else return null;
-    }
     public void createAccount(String username, String password) throws AccException {
         AccountDTO tempacc = em.find(Account.class, username);
         
@@ -46,7 +38,7 @@ public class AccHandler {
        
         Account account = new Account(username, password);
         Groups grp = new Groups(username);
-        grp.setAccount(account);
+        //grp.setAccount(account);
         //person.setRole("Applicant");
         //person.setRole("Recruiter");
         //account.setRole("Recruiter");

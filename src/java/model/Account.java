@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -24,13 +25,16 @@ public class Account implements AccountDTO, Serializable {
     private String username;
     private String password;
     //private String role;
-
+    @ManyToOne
+    private Groups group;
     public Account(){
-        
+        super();
     }
     public Account(String username, String password) {
+        super();
         this.username = username;
         this.password = password;
+        this.group=new Groups(username);
         //this.role = "applicant";
 
     }
@@ -64,6 +68,12 @@ public class Account implements AccountDTO, Serializable {
     
     */
 
+    public void setGroup(Groups group){
+        this.group=group;
+    }
+    public Groups getGroup(){
+        return group;
+    }
     @Override
     public int hashCode() {
         int hash = 0;

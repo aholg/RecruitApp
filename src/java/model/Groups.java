@@ -21,20 +21,20 @@ public class Groups implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String username;
+    int group_id;
     private String groupname;
     
-    @ManyToOne
-    private Account account;
+    //@ManyToOne
+    //private Account account;
     
     public Groups(String username){
-        super();
+     //   super();
         this.username = username;
         this.groupname = "Applicant";
     }
 
     public Groups(){
-        super();
+       // super();
     }
 
 
@@ -53,14 +53,14 @@ public class Groups implements Serializable {
     public void setRole(String role) {
         this.groupname = role;
     }
-
+/*
     public Account getAccount(){
         return account;
     }
     
      public void setAccount(Account account){
         this.account = account;
-    }
+    }*/
 
     @Override
     public int hashCode() {
