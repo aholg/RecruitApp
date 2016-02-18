@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import model.AccException;
 import model.Account;
 import model.AccountDTO;
-import model.Groups;
 import model.Person;
 
 
@@ -27,6 +26,14 @@ public class AccHandler {
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
     
+    public Person loginAccount(String username,String password){
+       
+       Account acc=em.find(Account.class,username);
+       if(acc.getPassword().equalsIgnoreCase(password)){
+           Person p= em.find(Person.class, username);
+           return p;
+       }else return null;
+    }
     public void createAccount(String username, String password) throws AccException {
         AccountDTO tempacc = em.find(Account.class, username);
         
@@ -37,24 +44,23 @@ public class AccHandler {
         }
        
         Account account = new Account(username, password);
-        Groups grp = new Groups(username);
-        //grp.setAccount(account);
+        Person person = new Person(username);
+        
         //person.setRole("Applicant");
         //person.setRole("Recruiter");
-        //account.setRole("Recruiter");
+        account.setRole("Recruiter");
         em.persist(account);
-        em.persist(grp);
+        em.persist(person);
       
 
     }
     
     
     public boolean checkRole(String username){
-        Groups grp=em.find(Groups.class, username);
+        Account acc=em.find(Account.class, username);
        
-        return grp.getRole().equalsIgnoreCase("Applicant");
+        return acc.getRole().equals("Recruiter");
     }
-    
     public boolean checkUserAvailability(String username){
         return em.find(Person.class, username)==null;
     }

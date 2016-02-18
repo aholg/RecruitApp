@@ -44,7 +44,7 @@ public class AcctManager implements Serializable {
     private Exception loginFailure;
     private String loginResult;
 
-
+    
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
