@@ -10,59 +10,57 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Andreas
  */
 @Entity
-public class Account implements AccountDTO, Serializable {
-
+public class Groups implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
-    private String password;
-    //private String role;
-
-    public Account(){
-        
-    }
-    public Account(String username, String password) {
+    private String groupname;
+    
+    @ManyToOne
+    private Account account;
+    
+    public Groups(String username){
+        super();
         this.username = username;
-        this.password = password;
-        //this.role = "applicant";
-
+        this.groupname = "Applicant";
     }
 
-    @Override
-    public String getPassword() {
-        return password;
+    public Groups(){
+        super();
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    @Override
     public String getUsername() {
         return username;
+    }
+
+    public String getRole() {
+        return groupname;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-   /* @Override
-    public String getRole() {
-        return role;
+    public void setRole(String role) {
+        this.groupname = role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public Account getAccount(){
+        return account;
     }
     
-    */
+     public void setAccount(Account account){
+        this.account = account;
+    }
 
     @Override
     public int hashCode() {
@@ -73,11 +71,11 @@ public class Account implements AccountDTO, Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Account)) {
+        // TODO: Warning - this method won't work in the case the username fields are not set
+        if (!(object instanceof Groups)) {
             return false;
         }
-        Account other = (Account) object;
+        Groups other = (Groups) object;
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }
@@ -86,7 +84,7 @@ public class Account implements AccountDTO, Serializable {
 
     @Override
     public String toString() {
-        return "Model.Account[ username=" + username + " ]";
+        return "model.Groups[ id=" + username + " ]";
     }
-
+    
 }

@@ -9,5 +9,5 @@ public interface AccountDTO {
         
     String getUsername();
     String getPassword();
-    String getRole();
+   // String getRole();
 }
