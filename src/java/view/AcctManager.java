@@ -144,16 +144,13 @@ public class AcctManager implements Serializable {
             return jsf22Bugfix();
         }
         try {
-            // call createAccount in the accountHandler to create an account.
+            // call createAccount in the accHandler to create an account.
             accHandler.createAccount(this.getRegisterUsername(), sha256(this.getRegisterPassword()));
         } catch (AccException ex) {
             handleException(ex);
             return jsf22Bugfix();
         }
 
-        // set up an session for the new user
-        // HttpSession session = SessionData.getSession();
-        // session.setAttribute("username", getRegisterUsername()); //Set session attribute
         //clear the fields
         registerUsername = "";
         registerPassword = "";
