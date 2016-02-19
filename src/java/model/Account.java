@@ -23,7 +23,7 @@ public class Account implements AccountDTO, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
     private String password;
-    private String role;
+    private String groupname;
 
     public Account(){
         
@@ -31,7 +31,7 @@ public class Account implements AccountDTO, Serializable {
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = "applicant";
+        this.groupname = "applicant";
 
     }
 
@@ -55,11 +55,11 @@ public class Account implements AccountDTO, Serializable {
 
     @Override
     public String getRole() {
-        return role;
+        return groupname;
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.groupname = role;
     }
     
     

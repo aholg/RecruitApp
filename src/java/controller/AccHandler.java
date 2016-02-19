@@ -54,7 +54,6 @@ public class AccHandler {
       
 
     }
-    //this is poop
     
     public boolean checkRole(String username){
         Account acc=em.find(Account.class, username);
