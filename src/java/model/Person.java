@@ -26,12 +26,12 @@ public class Person implements PersonDTO, Serializable {
     //private String role;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String username;
+    int id;
    // private int personID;
     public Person(){
         
     }
-    public Person(String username) {
+    /*public Person(String username) {
 
        // this.name = name;
         //this.ssn = ssn;
@@ -41,7 +41,7 @@ public class Person implements PersonDTO, Serializable {
         //this.role = role;
 
         //this.personID = personID;
-    }
+    }*/
 
    /* @Override
     public int getPersonID() {
@@ -67,7 +67,7 @@ public class Person implements PersonDTO, Serializable {
     public String getPassword() {
         return password;
     }
-
+/*
     @Override
     public String getUsername() {
         return username;
@@ -97,20 +97,15 @@ public class Person implements PersonDTO, Serializable {
     public void setPassword(String password) {
         this.password=password;
     }
-
-    @Override
-    public void setUsername(String username) {
-        this.username=username;
-    }
 /*
     @Override
     public void setRole(String role) {
         this.role=role;
     }*/
-    @Override
+ @Override
     public int hashCode() {
         int hash = 0;
-        hash += (username != null ? username.hashCode() : 0);
+        hash += (int) id;
         return hash;
     }
 
@@ -121,7 +116,7 @@ public class Person implements PersonDTO, Serializable {
             return false;
         }
         Person other = (Person) object;
-        if (!this.username.equals(other.username)) {
+        if (this.id != other.id) {
             return false;
         }
         return true;
@@ -129,6 +124,19 @@ public class Person implements PersonDTO, Serializable {
 
     @Override
     public String toString() {
-        return "model.Availability[ id=" + username + " ]";
+        return "model.Availability[ id=" + id + " ]";
     }
+
+    @Override
+    public int getId() {
+       return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id=id;
+    }
+   
 }
+
+

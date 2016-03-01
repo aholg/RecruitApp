@@ -6,10 +6,12 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -22,16 +24,20 @@ public class Account implements AccountDTO, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
+    
     private String password;
     private String groupname;
-
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    Person person;
     public Account(){
         
     }
-    public Account(String username, String password) {
-        this.username = username;
+    public Account(Person person, String password, String username) {
+        this.person = person;
         this.password = password;
         this.groupname = "applicant";
+        this.username = username;
 
     }
 
@@ -61,10 +67,16 @@ public class Account implements AccountDTO, Serializable {
     public void setRole(String role) {
         this.groupname = role;
     }
-    
-    
 
-    @Override
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+    
+@Override
     public int hashCode() {
         int hash = 0;
         hash += (username != null ? username.hashCode() : 0);
@@ -88,5 +100,5 @@ public class Account implements AccountDTO, Serializable {
     public String toString() {
         return "Model.Account[ username=" + username + " ]";
     }
-
+   
 }

@@ -17,13 +17,15 @@ public interface PersonDTO {
     String getSSN();
     String getEmail();
     String getPassword();
-    String getUsername();
+    int getId();
+    //String getUsername();
    // String getRole();
    
    void setName(String name);
     void setSSN(String ssn);
     void setEmail(String email);
     void setPassword(String password);
-    void setUsername(String username);
+    void setId(int id);
+    //void setUsername(String username);
    // void setRole(String role);
 }

@@ -34,13 +34,12 @@ public class AccHandler {
                 throw new AccException("This username is already taken");
             }  
         }
-       
-        Account account = new Account(username, password);
-        Person person = new Person(username);
+        Person person = new Person();
+        Account account = new Account(person, password, username);
         
         //person.setRole("Applicant");
         //person.setRole("Recruiter");
-        account.setRole("Recruiter");
+        account.setRole("Applicant");
         em.persist(account);
         em.persist(person);
     }
