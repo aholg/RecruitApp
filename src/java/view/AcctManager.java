@@ -43,12 +43,14 @@ public class AcctManager implements Serializable {
     private Conversation conversation;
     private Exception loginFailure;
     private String loginResult;
-
-    
+    private FacesContext context;
+    private HttpServletRequest request;
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
+        context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
     }
 
     private void stopConversation() {
@@ -59,7 +61,7 @@ public class AcctManager implements Serializable {
 
     private void handleException(Exception e) {
         stopConversation();
-        e.printStackTrace(System.err);
+        context.addMessage(null, new FacesMessage(e.getMessage()));
         transactionFailure = e;
     }
 
@@ -105,13 +107,16 @@ public class AcctManager implements Serializable {
 
     public String login() {
         startConversation();
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        //FacesContext context = FacesContext.getCurrentInstance();
+        //HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(this.loginUsername, this.loginPassword);
+            
         } catch (ServletException e) {
             loginResult = "Fail";
-            context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
+            
+            //context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
+            handleException(e);
             return "fail";
         }
         if (accHandler.checkRole(loginUsername) == true) {
