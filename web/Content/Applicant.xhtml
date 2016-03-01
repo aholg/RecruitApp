@@ -1,16 +1,70 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO Applicant</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>This is page for Applicant</div>
-    </body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>HEADER</title>
+        <style>
+            
+            ul#menu li {
+    display: inline;
+}
+
+    ul#menu li a {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px 4px 0 0;
+}
+        </style>
+      
+
+        <ul id="menu">
+  <li><a href="./../index.xhtml">Start</a></li>
+  <li><a href="./../index.xhtml">Logout</a></li>
+  
+    </ul>
+        
+    
+    
+    </h:head>
+    
+      <h:body style="margin: 0 auto">
+        <div style="width: 100%;border-bottom: 1px black solid">
+        </div>
+        <center>
+            <br/>
+            <br/><br/>
+            <h3><u>APPLY</u></h3>
+
+            <h:form>
+                First name: <h:inputText id="firstName"  value="#{ApplicationManager.firstName}"    size="60" required="true" label="firstName"> </h:inputText>  
+                <br/><br/>
+                Last name: <h:inputText id="lastName"  value="#{ApplicationManager.lastName}"    size="60" required="true" label="lastName"> </h:inputText>  
+                <br/><br/>
+                E-mail: <h:inputText id="mail"  value="#{ApplicationManager.email}"    size="60" required="true" label="mail"> </h:inputText> 
+                <br/><br/>
+                Social security number: <h:inputText id="ssn"  value="#{ApplicationManager.ssn}"    size="60" required="true" label="ssn"> </h:inputText>
+                <br/><br/>
+                Years of experience: <h:inputText id="yearsOfExperience"  value="#{ApplicationManager.yearsOfExperience}"    size="60" required="true" label="yearsOfExperience"> </h:inputText>
+                <br/><br/>
+                Competence: <h:inputText id="competence"  value="#{ApplicationManager.competence}"    size="60" required="true" label="competence"> </h:inputText>
+                <br/><br/>
+                Start date: <h:inputText id="startDate"  value="#{ApplicationManager.startDate}"    size="60" required="true" label="startDate"> </h:inputText>
+                <br/><br/>
+                End date: <h:inputText id="endDate"  value="#{ApplicationManager.endDate}"    size="60" required="true" label="endDate"> </h:inputText>
+                <br/><br/>
+                Description: <h:inputText id="descriptionText"  value="#{ApplicationManager.description}"    size="180" required="true" label="descriptionText"> </h:inputText>
+                <br/><br/>
+                <h:commandButton value="Submit" action="#{AcctManager.saveApplication()}" />
+            </h:form>
+            <br/><br/>
+            
+        
+            </center>
+
+       </h:body>
+    
 </html>
