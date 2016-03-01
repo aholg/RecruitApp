@@ -21,7 +21,6 @@ public class Person implements PersonDTO, Serializable {
     private String name;
     private String ssn;
     private String email;
-    private String password;
     
     //private String role;
     @Id
@@ -63,10 +62,7 @@ public class Person implements PersonDTO, Serializable {
         return email;
     }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+    
 /*
     @Override
     public String getUsername() {
@@ -91,11 +87,6 @@ public class Person implements PersonDTO, Serializable {
     @Override
     public void setEmail(String email) {
         this.email=email;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password=password;
     }
 /*
     @Override
