@@ -111,7 +111,7 @@ public class AcctManager implements Serializable {
             request.login(this.loginUsername, this.loginPassword);
         } catch (ServletException e) {
             loginResult = "Fail";
-            context.addMessage(null, new FacesMessage("Login failed." + e.getMessage() + loginUsername + loginPassword));
+            context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
             return "fail";
         }
         if (accHandler.checkRole(loginUsername) == true) {
