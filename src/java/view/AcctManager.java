@@ -9,7 +9,6 @@ package view;
  *
  * @author angie
  */
-
 import controller.AccHandler;
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -45,6 +44,7 @@ public class AcctManager implements Serializable {
     private String loginResult;
     private FacesContext context;
     private HttpServletRequest request;
+
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
@@ -111,10 +111,10 @@ public class AcctManager implements Serializable {
         //HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(this.loginUsername, this.loginPassword);
-            
+
         } catch (ServletException e) {
             loginResult = "Fail";
-            
+
             //context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
             handleException(e);
             return "fail";
@@ -127,8 +127,6 @@ public class AcctManager implements Serializable {
         }
 
     }
-
-
 
     /**
      * The registerUser() handles the logic for creating a new account. The
@@ -167,11 +165,13 @@ public class AcctManager implements Serializable {
      *
      * @return empty string, to handle jsf bug
      */
-    public String logoutUser() {
+    public String logoutUser() throws ServletException {
         startConversation();
-      // HttpSession session = SessionData.getSession();
+      //HttpSession session = SessionData.getSession();
+        //context.release();
+        request.logout();
         //session.invalidate();  //Invalidating the session will finally logout the user
-        return jsf22Bugfix();
+        return "logout";
     }
 
     public Exception getException() {

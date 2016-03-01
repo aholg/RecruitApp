@@ -4,24 +4,37 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
               
-   
+   <navigation-rule>
+        <from-view-id>/Content/Applicant.xhtml</from-view-id>
+        <navigation-case>
+            
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/faces/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>index.xhtml</from-view-id>
         <navigation-case>
             <!--<from-action>#{AcctManager.login}</from-action>-->
             <from-outcome>fail</from-outcome>
             <to-view-id>Error.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
         <navigation-case>
             <!--<from-action>#{AcctManager.login}</from-action>-->
             <from-outcome>successApplicant</from-outcome>
             <to-view-id>/faces/Content/Applicant.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
         <navigation-case>
             <!--<from-action>#{AcctManager.login}</from-action>-->
             <from-outcome>successRecruiter</from-outcome>
             <to-view-id>/faces/Content/Recruiter.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
+       
     </navigation-rule>
+    
 </faces-config>
