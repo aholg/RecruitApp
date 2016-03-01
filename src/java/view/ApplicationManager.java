@@ -83,7 +83,7 @@ public class ApplicationManager {
     }
     
      public void setEndDate(Date endDate){
-        
+        this.endDate=endDate;
     }
     
     public Date getEndDate(){
