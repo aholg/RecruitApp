@@ -25,7 +25,7 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-    <security-constraint>
+   <!-- <security-constraint>
         <web-resource-collection>
             <web-resource-name>Applicant page</web-resource-name>
             <url-pattern>/faces/Applicant.xhtml</url-pattern>
@@ -38,22 +38,23 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </security-constraint>
+    </security-constraint>-->
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Applicant page</web-resource-name>
-            <url-pattern>/Applicant.xhtml</url-pattern>
+            <web-resource-name>Content</web-resource-name>
+            <url-pattern>/Content/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>none</role-name>
+            <role-name>Recruiter</role-name>
+            <role-name>Applicant</role-name>
         </auth-constraint>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-    <security-constraint>
+  <!--  <security-constraint>
         <web-resource-collection>
             <web-resource-name>Recruiter page</web-resource-name>
             <url-pattern>/faces/Recruiter.xhtml</url-pattern>
@@ -66,7 +67,8 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </security-constraint>
+    </security-constraint>-->
+    
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>recruitRealm</realm-name>
