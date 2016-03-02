@@ -38,7 +38,7 @@ public class AccHandler {
         Account account = new Account(person, password, username);
         
         //person.setRole("Applicant");
-        //person.setRole("Recruiter");
+        //account.setRole("Recruiter");
         account.setRole("Applicant");
         em.persist(account);
         em.persist(person);

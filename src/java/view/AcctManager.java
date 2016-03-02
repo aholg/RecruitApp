@@ -165,11 +165,15 @@ public class AcctManager implements Serializable {
      *
      * @return empty string, to handle jsf bug
      */
-    public String logoutUser() throws ServletException {
+    public String logoutUser() {
         startConversation();
       //HttpSession session = SessionData.getSession();
         //context.release();
+       try{
         request.logout();
+       }catch(ServletException e){
+           handleException(e);
+       }
         //session.invalidate();  //Invalidating the session will finally logout the user
         return "logout";
     }

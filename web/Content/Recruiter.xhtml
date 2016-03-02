@@ -21,11 +21,13 @@
         </style>
       
 
+      <h:form>
         <ul id="menu">
-  <li><a href="./../faces/index.xhtml">Start</a></li>
-  <li><a href="./../faces/index.xhtml">Logout</a></li>
-  
-    </ul>
+            <li><a href="./../faces/index.xhtml">Start</a></li>
+            <li><h:commandLink value="Logout" action="#{AcctManager.logoutUser}"/></li>
+            
+        </ul>
+        </h:form>
         
     
       

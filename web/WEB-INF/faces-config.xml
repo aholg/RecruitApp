@@ -4,7 +4,7 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
               
-   <navigation-rule>
+    <navigation-rule>
         <from-view-id>/Content/Applicant.xhtml</from-view-id>
         <navigation-case>
             
@@ -13,7 +13,15 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-    
+    <navigation-rule>
+        <from-view-id>/Content/Recruiter.xhtml</from-view-id>
+        <navigation-case>
+            
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/faces/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     <navigation-rule>
         <from-view-id>index.xhtml</from-view-id>
         <navigation-case>
