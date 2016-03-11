@@ -57,7 +57,7 @@ public class ApplicationManager implements Serializable{
     private HttpSession session;
     private List<Competence> competenceList;
     
-    public String[] competence = {"1","2"};
+    private String[] competence = {"1","2"};
     
     public String[] getCompetence() {
       return competence;
@@ -185,12 +185,13 @@ public class ApplicationManager implements Serializable{
         return ssn;
     }
     
-    public void setCompetence(String competence){
+    /*public void setCompetence(String competence){
         if(competenceList==null){
             competenceList=new ArrayList();
         }
         competenceList.add(new Competence(competence));
         //this.competence = competence;
+*/
     }
     
   
