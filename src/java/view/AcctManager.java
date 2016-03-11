@@ -22,6 +22,7 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.*;
 import model.AccException;
 
 @Named("AcctManager")
@@ -31,9 +32,13 @@ public class AcctManager implements Serializable {
     @EJB
     private AccHandler accHandler;
     private Exception accountException;
+    @Size(min=1)
     private String registerUsername;
+    @Size(min=1)
     private String registerPassword;
+    @Size(min=1)
     private String loginUsername;
+    @Size(min=1)
     private String loginPassword;
     private Exception transactionFailure;
     private boolean loggedIn = false;

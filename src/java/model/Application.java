@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.*;
 
 /**
  *
@@ -20,10 +21,12 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Application implements ApplicationDTO, Serializable {
-
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     CompetenceProfile profile;
+     @Size(max=100)
     String description;
+     @NotNull
     @OneToOne(cascade = CascadeType.MERGE)
     Person person;
     @Id

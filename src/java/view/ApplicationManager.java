@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.AccException;
 import model.Account;
 import model.Competence;
 import model.Person;
@@ -95,15 +96,29 @@ public class ApplicationManager implements Serializable{
         return description;
     }
      
-    public void saveApplication(){
+    public void saveApplication() {
         startConversation();
-        Object usernameObject=session.getAttribute("username");
-        String username=usernameObject.toString();
-        Account acc=accHandler.getAcc(username);
-        Person person=acc.getPerson();
-        applyHandler.saveApplication(person, yearsOfExperience, competenceList,description);
-        //String msg=accHandler.getAcc(username);
-       // handleException(new Exception(acc.getUsername()));
+        Object usernameObject=null;
+        try {
+            usernameObject = session.getAttribute("username");
+        }catch(IllegalStateException e){
+           
+            handleException(e);
+        }
+        if(usernameObject!=null){
+            String username = usernameObject.toString();
+            Account acc;
+            try {
+                acc = accHandler.getAcc(username);
+                Person person = acc.getPerson();
+                applyHandler.saveApplication(person, yearsOfExperience, competenceList, description);
+            } catch (AccException ex) {
+                handleException(ex);
+            }
+            
+           
+        }
+        
     }
     
     public void setExperience(String experience){

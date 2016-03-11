@@ -37,6 +37,7 @@ public class ApplyHandler {
        
         
         //em.persist(profile);
+        
         em.persist(app);
     }
 }

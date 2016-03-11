@@ -54,9 +54,15 @@ public class AccHandler {
     public boolean checkUserAvailability(String username){
         return em.find(Person.class, username)==null;
     }
-    public Account getAcc(String username){
+    public Account getAcc(String username) throws AccException{
         System.out.println(username);
-        return em.find(Account.class, username);
+        Account acc=em.find(Account.class, username);
+        if(acc!=null){
+            return acc;
+        }else{
+            throw new AccException("Account was not found");
+        }
+       
         //return username;
     }
 }

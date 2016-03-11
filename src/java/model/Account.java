@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.*;
 
 /**
  *
@@ -25,9 +26,11 @@ public class Account implements AccountDTO, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
     
+    @Size(min=1)
     private String password;
+    @Size(min=1)
     private String groupname;
-    
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     Person person;
     public Account(){
