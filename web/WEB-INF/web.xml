@@ -84,7 +84,7 @@
         <role-name>Recruiter</role-name>
     </security-role>
    <error-page>
-       <exception-type>java.lang.NullPointerException</exception-type>
+       <exception-type>java.lang.RuntimeException</exception-type>
        <location>/faces/Error.xhtml</location>
    </error-page>
 </web-app>

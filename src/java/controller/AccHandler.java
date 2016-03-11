@@ -43,7 +43,7 @@ public class AccHandler {
         account.setRole("Applicant");
         em.persist(account);
         em.persist(person);
-        throw new NullPointerException("An error was encountered during registration");
+        //throw new NullPointerException("An error was encountered during registration");
     }
     
     public boolean checkRole(String username){
