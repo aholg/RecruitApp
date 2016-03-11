@@ -44,7 +44,8 @@ public class ApplicationManager implements Serializable{
     private int yearsOfExperience;
     private String email;
     private String ssn;
-    private String competence;
+
+    
     @EJB
     private AccHandler accHandler;
     private Exception transactionFailure;
@@ -54,6 +55,17 @@ public class ApplicationManager implements Serializable{
     private HttpServletRequest request;
     private HttpSession session;
     private List<Competence> competenceList;
+    
+    public String[] competence = {"1","2"};
+    
+    public String[] getCompetence() {
+      return competence;
+   }
+
+   public void setCompetence(String[] competence) {
+      this.competence = competence;
+   }
+    
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
@@ -166,7 +178,5 @@ public class ApplicationManager implements Serializable{
         //this.competence = competence;
     }
     
-    public String getCompetence(){
-        return competence;
-    }
+  
 }
