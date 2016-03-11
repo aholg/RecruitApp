@@ -11,8 +11,10 @@ package model;
  * @author Anton
  */
 public interface CompetenceDTO {
-    
-    int getCompetenceID();
+    void setCompetenceProfile(CompetenceProfile profile);
+    CompetenceProfile getCompetenceProfile();
+    int getCompetenceId();
     String getName();
-    
+    void setCompetenceId(int id);
+    void setName(String name);
 }

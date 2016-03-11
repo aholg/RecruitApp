@@ -5,10 +5,23 @@
  */
 package view;
 
+import controller.AccHandler;
 import controller.ApplyHandler;
-import java.util.Date;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Competence;
+import model.Person;
 
 
 
@@ -16,30 +29,38 @@ import javax.inject.Inject;
  *
  * @author angie
  */
-public class ApplicationManager {
-    
+@Named("ApplicationManager")
+@ConversationScoped
+public class ApplicationManager implements Serializable{
+    @EJB
     private ApplyHandler applyHandler;
-    private String descriptionText;
+    private String description;
     
     private String firstName;
     private String lastName;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String experience;
     private int yearsOfExperience;
     private String email;
     private String ssn;
     private String competence;
-    
-    
+    @EJB
+    private AccHandler accHandler;
     private Exception transactionFailure;
     @Inject
     private Conversation conversation;
-    
+    private FacesContext context;
+    private HttpServletRequest request;
+    private HttpSession session;
+    private List<Competence> competenceList;
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
+        context = FacesContext.getCurrentInstance();
+        request = (HttpServletRequest) context.getExternalContext().getRequest();
+        session=request.getSession();
     }
 
     private void stopConversation() {
@@ -50,20 +71,27 @@ public class ApplicationManager {
 
     private void handleException(Exception e) {
         stopConversation();
-        e.printStackTrace(System.err);
+        context.addMessage(null, new FacesMessage(e.getMessage()));
         transactionFailure = e;
     }
     
-    public void setDescriptionText(String descriptionText){
-        this.descriptionText = descriptionText;
+    public void setDescription(String descriptionText){
+        this.description = descriptionText;
     }
     
-     public String getDescriptionText(){
-        return descriptionText;
+     public String getDescription(){
+        return description;
     }
      
     public void saveApplication(){
-        
+        startConversation();
+        Object usernameObject=session.getAttribute("username");
+        String username=usernameObject.toString();
+        Account acc=accHandler.getAcc(username);
+        Person person=acc.getPerson();
+        applyHandler.saveApplication(person, yearsOfExperience, competenceList,description);
+        //String msg=accHandler.getAcc(username);
+       // handleException(new Exception(acc.getUsername()));
     }
     
     public void setExperience(String experience){
@@ -74,19 +102,19 @@ public class ApplicationManager {
         return experience;
     }
     
-    public void setStartDate(Date startDate){
-        
+    public void setStartDate(String startDate){
+        this.startDate=startDate;
     }
     
-    public Date getStartDate(){
+    public String getStartDate(){
         return startDate;
     }
     
-     public void setEndDate(Date endDate){
+     public void setEndDate(String endDate){
         this.endDate=endDate;
     }
     
-    public Date getEndDate(){
+    public String getEndDate(){
         return endDate;
     }
     
@@ -122,16 +150,20 @@ public class ApplicationManager {
         return email;
     }
     
-    public void setSSN(String ssn){
+    public void setSsn(String ssn){
         this.ssn = ssn;
     }
     
-    public String getSSN(){
+    public String getSsn(){
         return ssn;
     }
     
     public void setCompetence(String competence){
-        this.competence = competence;
+        if(competenceList==null){
+            competenceList=new ArrayList();
+        }
+        competenceList.add(new Competence(competence));
+        //this.competence = competence;
     }
     
     public String getCompetence(){

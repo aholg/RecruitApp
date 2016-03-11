@@ -8,10 +8,13 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,19 +25,20 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
 
     private static final long serialVersionUID = 3L;
     int experience;
+    @OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "competenceProfile")
     List<Competence> competences;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int personID;
+    int id;
 
     public CompetenceProfile() {
 
     }
 
-    public CompetenceProfile(int personID, int experience) {
-        this.personID = personID;
+    public CompetenceProfile( int experience,List<Competence> competences) {
+        //this.id =id;
         this.experience = experience;
-        competences = new ArrayList();
+       this.competences = competences;
     }
 
     @Override
@@ -43,23 +47,35 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
     }
 
     @Override
-    public int getPersonID() {
-        return personID;
+    public int getId() {
+        return id;
     }
 
     @Override
-    public int getYearsOfExperience() {
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    @Override
+    public void setCompetences(List<Competence> competences) {
+        this.competences = competences;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getExperience() {
         return experience;
     }
 
-    @Override
-    public void addCompetence(Competence competence) {
-        competences.add(competence);
-    }
+   
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) personID;
+        hash += (int) id;
         return hash;
     }
 
@@ -70,7 +86,7 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
             return false;
         }
         CompetenceProfile other = (CompetenceProfile) object;
-        if (this.personID != other.personID) {
+        if (this.id != other.id) {
             return false;
         }
         return true;
@@ -78,6 +94,6 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
 
     @Override
     public String toString() {
-        return "model.Availability[ id=" + personID + " ]";
+        return "model.Availability[ id=" + id + " ]";
     }
 }

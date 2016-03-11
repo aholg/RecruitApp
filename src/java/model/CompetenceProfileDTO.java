@@ -14,7 +14,9 @@ import java.util.List;
  */
 public interface CompetenceProfileDTO {
     List<Competence> getCompetences();
-    int getPersonID();
-    int getYearsOfExperience();
-    void addCompetence(Competence competence);
+    int getId();
+    int getExperience();
+    void setCompetences(List<Competence> competence);
+    void setId(int id);
+    void setExperience(int experience);
 }

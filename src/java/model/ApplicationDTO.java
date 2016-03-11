@@ -14,4 +14,10 @@ public interface ApplicationDTO {
     
     CompetenceProfileDTO getProfile();
     String getDescription();
+    void setProfile(CompetenceProfile profile);
+    void setDescription(String description);
+    void setApplicationId(int id);
+    void setPerson(Person person);
+    Person getPerson();
+    int getApplicationId();
 }

@@ -31,7 +31,6 @@ public class AcctManager implements Serializable {
     @EJB
     private AccHandler accHandler;
     private Exception accountException;
-    private AccHandler accountHandler;
     private String registerUsername;
     private String registerPassword;
     private String loginUsername;
@@ -44,13 +43,15 @@ public class AcctManager implements Serializable {
     private String loginResult;
     private FacesContext context;
     private HttpServletRequest request;
-
+    private HttpSession session;
+    
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
         context = FacesContext.getCurrentInstance();
         request = (HttpServletRequest) context.getExternalContext().getRequest();
+        session=request.getSession();
     }
 
     private void stopConversation() {
@@ -111,8 +112,9 @@ public class AcctManager implements Serializable {
         //HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(this.loginUsername, this.loginPassword);
-
-        } catch (ServletException e) {
+           
+            session.setAttribute("username", loginUsername);
+        } catch (ServletException|NullPointerException e) {
             loginResult = "Fail";
 
             //context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
@@ -149,7 +151,7 @@ public class AcctManager implements Serializable {
         try {
             // call createAccount in the accHandler to create an account.
             accHandler.createAccount(this.getRegisterUsername(), sha256(this.getRegisterPassword()));
-        } catch (AccException ex) {
+        } catch (NullPointerException|AccException ex) {
             handleException(ex);
             return jsf22Bugfix();
         }

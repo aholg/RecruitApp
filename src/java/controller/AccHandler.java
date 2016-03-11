@@ -21,12 +21,12 @@ import model.Person;
  * @author Andreas
  */
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+
 @Stateless
 public class AccHandler {
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
-    
-    public void createAccount(String username, String password) throws AccException {
+    public void createAccount(String username, String password) throws AccException,NullPointerException {
         AccountDTO tempacc = em.find(Account.class, username);
         
         if (tempacc != null) {
@@ -39,9 +39,11 @@ public class AccHandler {
         
         //person.setRole("Applicant");
         //account.setRole("Recruiter");
+        
         account.setRole("Applicant");
         em.persist(account);
         em.persist(person);
+        throw new NullPointerException("An error was encountered during registration");
     }
     
     public boolean checkRole(String username){
@@ -52,5 +54,9 @@ public class AccHandler {
     public boolean checkUserAvailability(String username){
         return em.find(Person.class, username)==null;
     }
-    
+    public Account getAcc(String username){
+        System.out.println(username);
+        return em.find(Account.class, username);
+        //return username;
+    }
 }

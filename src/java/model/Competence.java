@@ -6,24 +6,28 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Anton
  */
 @Entity
-class Competence implements CompetenceDTO, Serializable {
+public class Competence implements CompetenceDTO, Serializable {
     private static final long serialVersionUID = 3L;
     String name;
+    @JoinColumn(name = "profileId")
+    @ManyToOne(fetch=FetchType.LAZY)
+    private CompetenceProfile competenceProfile;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int competenceID;
+    int competenceId;
     
     public Competence(){
         
@@ -36,14 +40,34 @@ class Competence implements CompetenceDTO, Serializable {
         return name;
     }
     @Override
-    public int getCompetenceID(){
-        return competenceID;
+    public int getCompetenceId(){
+        return competenceId;
     }
         @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) competenceID;
+        hash += (int) competenceId;
         return hash;
+    }
+
+    @Override
+    public void setCompetenceProfile(CompetenceProfile competenceProfile) {
+        this.competenceProfile = competenceProfile;
+    }
+
+    @Override
+    public CompetenceProfile getCompetenceProfile() {
+        return competenceProfile;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public void setCompetenceId(int competenceId) {
+        this.competenceId = competenceId;
     }
 
     @Override
@@ -53,7 +77,7 @@ class Competence implements CompetenceDTO, Serializable {
             return false;
         }
         Competence other = (Competence) object;
-        if (this.competenceID != other.competenceID) {
+        if (this.competenceId != other.competenceId) {
             return false;
         }
         return true;
@@ -61,6 +85,6 @@ class Competence implements CompetenceDTO, Serializable {
 
     @Override
     public String toString() {
-        return "model.Availability[ id=" + competenceID + " ]";
+        return "model.Availability[ id=" + competenceId + " ]";
     }
 }
