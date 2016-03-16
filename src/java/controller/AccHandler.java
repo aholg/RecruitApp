@@ -27,6 +27,18 @@ import model.Person;
 public class AccHandler {
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
+    
+    /**
+     * The method creates an account and adds it to the database if the username is not 
+     * already taken.
+     * 
+     * A person with a specified role is also added to the database.
+     *
+     * @param username the username the username wants for the account.
+     * @param password the password the user wants for the account.
+     * @throws AccException thrown if username already is taken.
+     * @throws NullPointerException thrown if username or password chosen is null.
+     */
     public void createAccount(String username, String password) throws AccException,NullPointerException {
         AccountDTO tempacc = em.find(Account.class, username);
         
@@ -52,6 +64,12 @@ public class AccHandler {
         //throw new NullPointerException("An error was encountered during registration");
     }
     
+    /**
+     * This method returns true if user is recruiter and false if user is Applicant.
+     *
+     * @param username the username of an registered user.
+     * @return true or false depending on the role.
+     */
     public boolean checkRole(String username){
         Account acc=em.find(Account.class, username);
        

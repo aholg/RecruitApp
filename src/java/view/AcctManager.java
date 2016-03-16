@@ -138,15 +138,12 @@ public class AcctManager implements Serializable {
     }
 
     /**
-     * The registerUser() handles the logic for creating a new account. The
-     * method takes the entered user information and calls the createAccount
-     * method in the controller(AccHandler.java) which creates an account for
-     * the user by saving the information in the database.
+     * The registerUser() handles the logic for creating a new account.
+     * The method takes information entered by user and calls the createAccount method
+     * in the controller(AccHandler) which creates an account for the user by persisting the
+     * information in the database.
      *
-     * After registering process is done successfully the user gets logged in
-     * automatically.
-     *
-     * @return empty string, to handle jsf bug
+     * @return empty string because of jsf bug.
      */
     public String registerUser() {
         startConversation();
@@ -194,6 +191,13 @@ public class AcctManager implements Serializable {
         return loginFailure;
     }
 
+    /**
+     * The sha256(string base) method takes a string as parameter hashes
+     * it after the sha256 algorithm.
+     *
+     * @param base the string that is to be hashed.
+     * @return the hashed string.
+     */
     public static String sha256(String base) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
