@@ -14,7 +14,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -25,8 +27,13 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
 
     private static final long serialVersionUID = 3L;
     int experience;
-    @OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "competenceProfile")
-    List<Competence> competences;
+    /*@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "competenceProfile")
+    @JoinColumn(name="COMPETENCEID",referencedColumnName="ID")
+    List<Competence> competences;*/
+    @OneToOne(cascade = CascadeType.MERGE)
+    Person person;
+    @OneToOne(cascade = CascadeType.REFRESH)
+    Competence competence;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
@@ -35,15 +42,24 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
 
     }
 
-    public CompetenceProfile( int experience,List<Competence> competences) {
+    public CompetenceProfile(int experience, Competence competence,Person person) {
         //this.id =id;
         this.experience = experience;
-       this.competences = competences;
+        this.competence = competence;
+        this.person=person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Person getPerson() {
+        return person;
     }
 
     @Override
-    public List<Competence> getCompetences() {
-        return competences;
+    public Competence getCompetence() {
+        return competence;
     }
 
     @Override
@@ -57,8 +73,8 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
     }
 
     @Override
-    public void setCompetences(List<Competence> competences) {
-        this.competences = competences;
+    public void setCompetence(Competence competences) {
+        this.competence = competence;
     }
 
     @Override
@@ -71,7 +87,6 @@ public class CompetenceProfile implements CompetenceProfileDTO, Serializable {
         return experience;
     }
 
-   
     @Override
     public int hashCode() {
         int hash = 0;

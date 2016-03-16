@@ -28,10 +28,10 @@
                 <br></br>
                 
                 <h:selectManyCheckbox value="#{ApplicationManager.competence}">
-   	<f:selectItem itemValue="1" itemLabel="Korvgrillning" /><br></br>
-   	<f:selectItem itemValue="2" itemLabel="Karuselldrift" /><br></br>
+                    <f:selectItem itemValue="1" itemLabel="Korvgrillning" /><br></br>
+                    <f:selectItem itemValue="2" itemLabel="Karuselldrift" /><br></br>
    	
-</h:selectManyCheckbox>
+                </h:selectManyCheckbox>
                 
                 
 
@@ -42,7 +42,7 @@
                 <br/><br/>
                 Description: <h:inputText id="descriptionText"  value="#{ApplicationManager.description}"    size="60" required="true" label="descriptionText"> </h:inputText>
                 <br/><br/>
-                <h:commandButton value="Submit" action="#{AcctManager.saveApplication()}" />
+                <h:commandButton value="Submit" action="#{ApplicationManager.saveApplication()}" />
             </h:form>
             <br/><br/>
             

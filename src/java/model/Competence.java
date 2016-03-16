@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -21,10 +22,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Competence implements CompetenceDTO, Serializable {
     private static final long serialVersionUID = 3L;
+    @Size(min=1)
     String name;
-    @JoinColumn(name = "profileId")
+   /* @JoinColumn(name = "ID")
     @ManyToOne(fetch=FetchType.LAZY)
-    private CompetenceProfile competenceProfile;
+    private CompetenceProfile competenceProfile;*/
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int competenceId;
@@ -49,7 +51,7 @@ public class Competence implements CompetenceDTO, Serializable {
         hash += (int) competenceId;
         return hash;
     }
-
+/*
     @Override
     public void setCompetenceProfile(CompetenceProfile competenceProfile) {
         this.competenceProfile = competenceProfile;
@@ -59,7 +61,7 @@ public class Competence implements CompetenceDTO, Serializable {
     public CompetenceProfile getCompetenceProfile() {
         return competenceProfile;
     }
-
+*/
     @Override
     public void setName(String name) {
         this.name = name;

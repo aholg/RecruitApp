@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import model.AccException;
 import model.Account;
 import model.AccountDTO;
+import model.Competence;
 import model.Person;
 
 
@@ -43,6 +44,11 @@ public class AccHandler {
         account.setRole("Applicant");
         em.persist(account);
         em.persist(person);
+        
+        Competence competence1=new Competence("Korvgrillning");
+        Competence competence2=new Competence("Karuselldrift");
+        em.persist(competence1);
+        em.persist(competence2);
         //throw new NullPointerException("An error was encountered during registration");
     }
     

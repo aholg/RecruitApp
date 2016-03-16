@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 /**
  *
@@ -17,9 +18,11 @@ import javax.persistence.Id;
  */
 @Entity
 public class Person implements PersonDTO, Serializable {
-
+   // @Size(min=1)
     private String name;
+   // @Size(min = 10,max=10)
     private String ssn;
+    //@Size(min=3)
     private String email;
     
     //private String role;

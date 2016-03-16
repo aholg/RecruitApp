@@ -13,10 +13,12 @@ import java.util.List;
  * @author Anton
  */
 public interface CompetenceProfileDTO {
-    List<Competence> getCompetences();
+    Competence getCompetence();
     int getId();
     int getExperience();
-    void setCompetences(List<Competence> competence);
+    void setCompetence(Competence competence);
     void setId(int id);
     void setExperience(int experience);
+    void setPerson(Person person);
+    Person getPerson();
 }

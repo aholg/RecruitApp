@@ -32,13 +32,13 @@ public class AcctManager implements Serializable {
     @EJB
     private AccHandler accHandler;
     private Exception accountException;
-    @Size(min=1)
+    @Size(min = 1)
     private String registerUsername;
-    @Size(min=1)
+    @Size(min = 1)
     private String registerPassword;
-    @Size(min=1)
+    @Size(min = 1)
     private String loginUsername;
-    @Size(min=1)
+    @Size(min = 1)
     private String loginPassword;
     private Exception transactionFailure;
     private boolean loggedIn = false;
@@ -49,14 +49,14 @@ public class AcctManager implements Serializable {
     private FacesContext context;
     private HttpServletRequest request;
     private HttpSession session;
-    
+
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
         context = FacesContext.getCurrentInstance();
         request = (HttpServletRequest) context.getExternalContext().getRequest();
-        session=request.getSession();
+        session = request.getSession();
     }
 
     private void stopConversation() {
@@ -117,22 +117,24 @@ public class AcctManager implements Serializable {
         //HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(this.loginUsername, this.loginPassword);
-           
+
             session.setAttribute("username", loginUsername);
-        } catch (ServletException|NullPointerException e) {
+        } catch (ServletException | NullPointerException e) {
             loginResult = "Fail";
 
             //context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
             handleException(e);
             return "fail";
         }
+        stopConversation();
         if (accHandler.checkRole(loginUsername) == true) {
             return "successRecruiter";
+            
 
         } else {
             return "successApplicant";
         }
-
+        
     }
 
     /**
@@ -156,7 +158,7 @@ public class AcctManager implements Serializable {
         try {
             // call createAccount in the accHandler to create an account.
             accHandler.createAccount(this.getRegisterUsername(), sha256(this.getRegisterPassword()));
-        } catch (NullPointerException|AccException ex) {
+        } catch (NullPointerException | AccException ex) {
             handleException(ex);
             return jsf22Bugfix();
         }
@@ -170,18 +172,21 @@ public class AcctManager implements Serializable {
     /**
      * The logoutUser() kills the user session
      *
-     * @return empty string, to handle jsf bug
      */
     public String logoutUser() {
         startConversation();
-      //HttpSession session = SessionData.getSession();
+        //HttpSession session = SessionData.getSession();
         //context.release();
-       try{
-        request.logout();
-       }catch(ServletException e){
-           handleException(e);
-       }
-        //session.invalidate();  //Invalidating the session will finally logout the user
+        try {
+            session.invalidate();
+            request.logout();
+            
+            
+        } catch (ServletException e) {
+            handleException(e);
+        }
+        stopConversation();
+//session.invalidate();  //Invalidating the session will finally logout the user
         return "logout";
     }
 

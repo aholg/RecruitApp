@@ -24,19 +24,18 @@ import model.Account;
 import model.Competence;
 import model.Person;
 
-
-
 /**
  *
  * @author angie
  */
 @Named("ApplicationManager")
 @ConversationScoped
-public class ApplicationManager implements Serializable{
+public class ApplicationManager implements Serializable {
+
     @EJB
     private ApplyHandler applyHandler;
     private String description;
-    
+
     private String firstName;
     private String lastName;
     private String startDate;
@@ -46,7 +45,6 @@ public class ApplicationManager implements Serializable{
     private String email;
     private String ssn;
 
-    
     @EJB
     private AccHandler accHandler;
     private Exception transactionFailure;
@@ -55,25 +53,25 @@ public class ApplicationManager implements Serializable{
     private FacesContext context;
     private HttpServletRequest request;
     private HttpSession session;
-    private List<Competence> competenceList;
-    
-    private String[] competence = {"1","2"};
-    
-    public String[] getCompetence() {
-      return competence;
-   }
+    //private List<Competence> competenceList;
 
-   public void setCompetence(String[] competence) {
-      this.competence = competence;
-   }
-    
+    private String[] competence = {"1", "2"};
+
+    public String[] getCompetence() {
+        return competence;
+    }
+
+    public void setCompetence(String[] competence) {
+        this.competence = competence;
+    }
+
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
         }
         context = FacesContext.getCurrentInstance();
         request = (HttpServletRequest) context.getExternalContext().getRequest();
-        session=request.getSession();
+        session = request.getSession();
     }
 
     private void stopConversation() {
@@ -87,112 +85,112 @@ public class ApplicationManager implements Serializable{
         context.addMessage(null, new FacesMessage(e.getMessage()));
         transactionFailure = e;
     }
-    
-    public void setDescription(String descriptionText){
+
+    public void setDescription(String descriptionText) {
         this.description = descriptionText;
     }
-    
-     public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-     
+
     public void saveApplication() {
         startConversation();
-        Object usernameObject=null;
+        Object usernameObject = null;
         try {
             usernameObject = session.getAttribute("username");
-        }catch(IllegalStateException e){
-           
+        } catch (IllegalStateException e) {
+
             handleException(e);
         }
-        if(usernameObject!=null){
+        if (usernameObject != null) {
             String username = usernameObject.toString();
             Account acc;
             try {
                 acc = accHandler.getAcc(username);
                 Person person = acc.getPerson();
-                applyHandler.saveApplication(person, yearsOfExperience, competenceList, description);
+                person.setEmail(email);
+                person.setSSN(ssn);
+                person.setName(firstName);
+                handleException(new Exception(competence[0]));
+                applyHandler.saveApplication(person, yearsOfExperience, competence, description);
             } catch (AccException ex) {
                 handleException(ex);
             }
-            
-           
+
         }
-        
+        stopConversation();
     }
-    
-    public void setExperience(String experience){
+
+    public void setExperience(String experience) {
         this.experience = experience;
     }
-    
-    public String getExperience(){
+
+    public String getExperience() {
         return experience;
     }
-    
-    public void setStartDate(String startDate){
-        this.startDate=startDate;
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
-    
-    public String getStartDate(){
+
+    public String getStartDate() {
         return startDate;
     }
-    
-     public void setEndDate(String endDate){
-        this.endDate=endDate;
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
-    
-    public String getEndDate(){
+
+    public String getEndDate() {
         return endDate;
     }
-    
-    public void setYearsOfExperience(int yearsOfExperience){
+
+    public void setYearsOfExperience(int yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
-    
-    public int getyearsOfExperience(){
+
+    public int getyearsOfExperience() {
         return yearsOfExperience;
     }
-    
-    public void setFirstName(String firstName){
+
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
-    public String getFirstName(){
+
+    public String getFirstName() {
         return firstName;
     }
-    
-     public void setLastName(String lastName){
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
-    public String getLastName(){
+
+    public String getLastName() {
         return lastName;
     }
-    
-      public void setEmail(String email){
+
+    public void setEmail(String email) {
         this.email = email;
     }
-    
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    
-    public void setSsn(String ssn){
+
+    public void setSsn(String ssn) {
         this.ssn = ssn;
     }
-    
-    public String getSsn(){
+
+    public String getSsn() {
         return ssn;
     }
-    
+
     /*public void setCompetence(String competence){
-        if(competenceList==null){
-            competenceList=new ArrayList();
-        }
-        competenceList.add(new Competence(competence));
-        //this.competence = competence;
-*/
-    }
-    
-  
+     if(competenceList==null){
+     competenceList=new ArrayList();
+     }
+     competenceList.add(new Competence(competence));
+     //this.competence = competence;
+     */
 }

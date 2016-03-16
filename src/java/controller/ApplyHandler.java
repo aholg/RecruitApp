@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -16,7 +17,6 @@ import model.Competence;
 import model.CompetenceProfile;
 import model.Person;
 
-
 /**
  *
  * @author angie
@@ -25,19 +25,26 @@ import model.Person;
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 @Stateless
 public class ApplyHandler {
+
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
-    
-    public void saveApplication(Person person,int yearsOfExperience,List<Competence> competenceList,String text){
-       /* for(Competence c:competenceList){
-            em.persist(c);
-        }*/
-        CompetenceProfile profile=new CompetenceProfile(yearsOfExperience,competenceList);
-        Application app=new Application(person,profile,text);
+
+    public void saveApplication(Person person, int yearsOfExperience, String[] competences, String text) {
+        /* for(Competence c:competenceList){
+         em.persist(c);
+         }*/
+        em.merge(person);
+        if(competences[0].equals("1")){
+           Competence competence= em.find(Competence.class, 2);
+           CompetenceProfile profile = new CompetenceProfile(yearsOfExperience, competence,person);
+           em.persist(profile);
+          // Application app = new Application(person, profile, text);
+        }
+        
+        
        
         
         //em.persist(profile);
-        
-        em.persist(app);
+        //em.persist(app);
     }
 }
