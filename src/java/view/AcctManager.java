@@ -40,12 +40,9 @@ public class AcctManager implements Serializable {
     private String loginUsername;
     @Size(min = 1)
     private String loginPassword;
-    private Exception transactionFailure;
     private boolean loggedIn = false;
     @Inject
     private Conversation conversation;
-    private Exception loginFailure;
-    private String loginResult;
     private FacesContext context;
     private HttpServletRequest request;
     private HttpSession session;
@@ -68,7 +65,7 @@ public class AcctManager implements Serializable {
     private void handleException(Exception e) {
         stopConversation();
         context.addMessage(null, new FacesMessage(e.getMessage()));
-        transactionFailure = e;
+
     }
 
     public boolean getSuccess() {
@@ -120,7 +117,7 @@ public class AcctManager implements Serializable {
 
             session.setAttribute("username", loginUsername);
         } catch (ServletException | NullPointerException e) {
-            loginResult = "Fail";
+
 
             //context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
             handleException(e);
@@ -187,9 +184,6 @@ public class AcctManager implements Serializable {
         return "logout";
     }
 
-    public Exception getException() {
-        return loginFailure;
-    }
 
     /**
      * The sha256(string base) method takes a string as parameter hashes

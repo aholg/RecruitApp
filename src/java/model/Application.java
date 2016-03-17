@@ -24,9 +24,10 @@ public class Application implements ApplicationDTO, Serializable {
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     CompetenceProfile profile;
-     @Size(max=100)
+    @Size(max=100)
     String description;
     // @NotNull
+    @NotNull
     @OneToOne(cascade = CascadeType.MERGE)
     Person person;
     @Id

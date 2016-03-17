@@ -18,11 +18,11 @@ import javax.validation.constraints.*;
  */
 @Entity
 public class Person implements PersonDTO, Serializable {
-   // @Size(min=1)
+    @Size(min=1)
     private String name;
-   // @Size(min = 10,max=10)
+    @Size(min = 10,max=10)
     private String ssn;
-    //@Size(min=3)
+    @Size(min=3)
     private String email;
     
     //private String role;
