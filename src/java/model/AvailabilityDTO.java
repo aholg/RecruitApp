@@ -11,8 +11,8 @@ package model;
  * @author Anton
  */
 public interface AvailabilityDTO {
-    int getAvailabilityID();
+    int getId();
     String getStartDate();
     String getEndDate();
-    int getPersonID();
+
 }

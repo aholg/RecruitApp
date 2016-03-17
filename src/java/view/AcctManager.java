@@ -25,7 +25,7 @@ import model.AccException;
 @Named("AcctManager")
 @ConversationScoped
 public class AcctManager implements Serializable {
-
+ 
     @EJB
     private AccHandler accHandler;
     @Size(min = 1)

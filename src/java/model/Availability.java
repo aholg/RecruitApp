@@ -7,7 +7,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +14,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Anton
+ * This is an entity class responsible for containing a availability period for a profile.
  */
 @Entity
 public class Availability implements Serializable,AvailabilityDTO {
@@ -24,17 +23,36 @@ public class Availability implements Serializable,AvailabilityDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
+    /**
+     *  Creates a new availability object.
+     */
     public Availability(){
         
     }
+
+    /**
+     * Creates a new availability object with given constructor parameters.
+     * @param startDate     A string containing the start date of the period.
+     * @param endDate       A string containing the end date of the period.
+     */
     public Availability(String startDate,String endDate){
        // availability=new Date();
        // availability.
     }
+    
+    /**
+     * A get method for retrieving the id of this entity.
+     * @return  An int containing the id.
+     */
     public int getId() {
         return id;
     }
-
+    
+    /**
+     * Set method for setting the id of the entity.
+     * @param id    An int containing the id.
+     */
     public void setId(int id) {
         this.id = id;
     }
@@ -64,24 +82,24 @@ public class Availability implements Serializable,AvailabilityDTO {
         return "model.Availability[ id=" + id + " ]";
     }
 
-    @Override
-    public int getAvailabilityID() {
-        return id;
-    }
-
+    /**
+     * Get method for getting the start date.
+     * @return  A string containing the start date.
+     */
     @Override
     public String getStartDate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get method for getting the end date.
+     * @return  Method for getting the end date.
+     */
     @Override
     public String getEndDate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public int getPersonID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+  
     
 }

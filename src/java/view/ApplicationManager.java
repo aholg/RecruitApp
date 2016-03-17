@@ -4,8 +4,6 @@ package view;
 import controller.AccHandler;
 import controller.ApplyHandler;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -15,9 +13,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import model.AccException;
 import model.Account;
-import model.Competence;
 import model.Person;
 
 /**
@@ -35,13 +34,17 @@ public class ApplicationManager implements Serializable {
     private ApplyHandler applyHandler;
     private String description;
 
+    @Size(min=1)
     private String firstName;
+     @Size(min=1)
     private String lastName;
     private String startDate;
     private String endDate;
     private String experience;
     private int yearsOfExperience;
+    @Pattern(regexp = "[a-z0-9]+@[a-z0-9]+\\.(com|net|se)")
     private String email;
+    @Pattern(regexp = "\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])-\\d{4}")
     private String ssn;
 
     @EJB
@@ -144,7 +147,7 @@ public class ApplicationManager implements Serializable {
                 person.setSSN(ssn);
                 person.setName(firstName);
                 handleException(new Exception(competence[0]));
-                applyHandler.saveApplication(person, yearsOfExperience, competence, description);
+                applyHandler.saveApplication(person, yearsOfExperience, competence);
             } catch (AccException ex) {
                 handleException(ex);
             }
@@ -273,7 +276,7 @@ public class ApplicationManager implements Serializable {
 
     /**
      * Called by a jsf request to set the values of the entrered input. Called during the 
-     * Update Model Values Phase. Checks so that it conforms to form "YYYY-MM-DD-NNNN"
+     * Update Model Values Phase. Checks so that it conforms to form "YYYY/MM/DD-NNNN"
      * @param ssn   String containing user social security name.
      */
     public void setSsn(String ssn) {

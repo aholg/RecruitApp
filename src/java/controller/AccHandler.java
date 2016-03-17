@@ -75,9 +75,22 @@ public class AccHandler {
        
         return acc.getRole().equals("Recruiter");
     }
+
+    /**
+     * Checks if a username is available in the database.
+     * @param username  String containing username to be checked if available.
+     * @return  True if available, otherwise false.
+     */
     public boolean checkUserAvailability(String username){
         return em.find(Person.class, username)==null;
     }
+    
+    /**
+     * Get method for retrieving an account from given username.
+     * @param username  String containing the username.
+     * @return      An account object that was associated with the given username.
+     * @throws AccException     Throws account exception if no account was found.
+     */
     public Account getAcc(String username) throws AccException{
         System.out.println(username);
         Account acc=em.find(Account.class, username);
@@ -87,6 +100,6 @@ public class AccHandler {
             throw new AccException("Account was not found");
         }
        
-        //return username;
+    
     }
 }
