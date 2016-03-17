@@ -154,7 +154,7 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     *  Called by a jsf request to set the values of the entrered description input. Called during the 
+     *  Called by a jsf request to set the values of the entrered input. Called during the 
      *  Update Model Values Phase.
      * @param experience String to be set.
      */
@@ -171,7 +171,7 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     *  Called by a jsf request to set the values of the entrered description input. Called during the 
+     *  Called by a jsf request to set the values of the entrered  input. Called during the 
      *  Update Model Values Phase. Checks so that it conforms to form "YYYY-MM-DD".
      *  @param startDate String containing start date to be set. 
      */
@@ -188,7 +188,7 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     * Called by a jsf request to set the values of the entrered description input. Called during the 
+     * Called by a jsf request to set the values of the entrered input. Called during the 
      * Update Model Values Phase. Checks so that it conforms to form "YYYY-MM-DD".
      * @param endDate String containing end date to be set. 
      */
@@ -205,7 +205,7 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     * Called by a jsf request to set the values of the entrered description input. Called during the 
+     * Called by a jsf request to set the values of the entrered input. Called during the 
      * Update Model Values Phase.
      * @param yearsOfExperience int containing number of years of experience.
      */
@@ -222,7 +222,7 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     * Called by a jsf request to set the values of the entrered description input. Called during the 
+     * Called by a jsf request to set the values of the entrered input. Called during the 
      * Update Model Values Phase.
      * @param firstName String containing first name of the user.
      */
@@ -238,7 +238,7 @@ public class ApplicationManager implements Serializable {
         return firstName;
     }
     /**
-     * Called by a jsf request to set the values of the entrered description input. Called during the 
+     * Called by a jsf request to set the values of the entrered input. Called during the 
      * Update Model Values Phase.
      * @param lastName String containing last name of the user.
      */
@@ -255,7 +255,7 @@ public class ApplicationManager implements Serializable {
     }
     
     /**
-     * Called by a jsf request to set the values of the entrered description input. Called during the 
+     * Called by a jsf request to set the values of the entrered input. Called during the 
      * Update Model Values Phase.
      * @param email String containing user email.
      */
@@ -272,7 +272,7 @@ public class ApplicationManager implements Serializable {
     }
 
     /**
-     * Called by a jsf request to set the values of the entrered description input. Called during the 
+     * Called by a jsf request to set the values of the entrered input. Called during the 
      * Update Model Values Phase. Checks so that it conforms to form "YYYY-MM-DD-NNNN"
      * @param ssn   String containing user social security name.
      */

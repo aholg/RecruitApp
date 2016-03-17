@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
-/**
- *
- * @author angie
- */
 import controller.AccHandler;
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -25,13 +16,18 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.*;
 import model.AccException;
 
+/**
+ * This class is responsible for handling user registration and login. The class
+ * is conversation scoped and stays alive for the duration of of the servlet
+ * requests.
+ *
+ */
 @Named("AcctManager")
 @ConversationScoped
 public class AcctManager implements Serializable {
 
     @EJB
     private AccHandler accHandler;
-    private Exception accountException;
     @Size(min = 1)
     private String registerUsername;
     @Size(min = 1)
@@ -47,6 +43,10 @@ public class AcctManager implements Serializable {
     private HttpServletRequest request;
     private HttpSession session;
 
+    /*
+     Checks if conversation is transient, if so it marks it as long running.
+     Retrieves the facescontext, request and session of the current servlet request.
+     */
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
@@ -55,12 +55,20 @@ public class AcctManager implements Serializable {
         request = (HttpServletRequest) context.getExternalContext().getRequest();
         session = request.getSession();
     }
+    /*
+     Stops the conversation by marking it transient if it was currently lng running.
+     */
 
     private void stopConversation() {
         if (!conversation.isTransient()) {
             conversation.end();
         }
     }
+    /*
+     Handles exception. Prints out the received message to web view
+    
+     @Param Exception e the exception that was thrown.
+     */
 
     private void handleException(Exception e) {
         stopConversation();
@@ -68,38 +76,75 @@ public class AcctManager implements Serializable {
 
     }
 
-    public boolean getSuccess() {
-        return accountException == null;
-    }
-
+    /**
+     * Called by a jsf request to set the values of the entrered input. Called
+     * during the Update Model Values Phase.
+     *
+     * @param registerUsername String containing the username to be registered.
+     */
     public void setRegisterUsername(String registerUsername) {
         this.registerUsername = registerUsername;
     }
-
+    
+    /**
+     * Method to get saved registered username. Used by jsf requests during the render response phase.
+     * @return  A string containing the username used for registration.
+     */
     public String getRegisterUsername() {
         return registerUsername;
     }
 
+    /**
+     * Called by a jsf request to set the values of the entrered input. Called
+     * during the Update Model Values Phase.
+     *
+     * @param loginUsername String username to be used for login.
+     */
     public void setLoginUsername(String loginUsername) {
         this.loginUsername = loginUsername;
     }
 
+    /**
+     * Method to get saved username used for login. Used by jsf requests during the render response phase.
+     * @return  A string used for retrieving the username used for login.
+     */
     public String getLoginUsername() {
         return loginUsername;
     }
 
+    /**
+     * Called by a jsf request to set the values of the entrered input. Called
+     * during the Update Model Values Phase.
+     *
+     * @param registerPassword String containing password to be used for
+     * registration.
+     */
     public void setRegisterPassword(String registerPassword) {
         this.registerPassword = registerPassword;
     }
 
+    /**
+     *  Method to get saved password used for registration. Used by jsf requests during the render response phase.
+     * @return  A string containing password used for registration. 
+     */
     public String getRegisterPassword() {
         return registerPassword;
     }
 
+    /**
+     * Called by a jsf request to set the values of the entrered input. Called
+     * during the Update Model Values Phase.
+     *
+     * @param loginPassword String containing password to be used for login.
+     */
     public void setLoginPassword(String loginPassword) {
         this.loginPassword = loginPassword;
     }
-
+    
+    /**
+     * Method to get saved password used for login. Used by jsf requests during the render response phase.
+     * @return  A string containing the password used for login.
+     */
     public String getLoginPassword() {
         return loginPassword;
     }
@@ -108,49 +153,52 @@ public class AcctManager implements Serializable {
         return "";
     }
 
+    /**
+     * Logs in the user with the username and password supplied by the user from
+     * the web view. Form based login is used and is handled through the http
+     * servlet request login function. The JDBC realm configured in the
+     * glassfish console tells the servlet in which database table the login
+     * information can be retrieved.
+     *
+     * @return A string containing which type of user that was successfully
+     * logged in, or fail if login failed.
+     */
     public String login() {
         startConversation();
-        //FacesContext context = FacesContext.getCurrentInstance();
-        //HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(this.loginUsername, this.loginPassword);
-
             session.setAttribute("username", loginUsername);
         } catch (ServletException | NullPointerException e) {
-
-
-            //context.addMessage(null, new FacesMessage("Login failed." + e.getMessage()));
             handleException(e);
             return "fail";
         }
         stopConversation();
         if (accHandler.checkRole(loginUsername) == true) {
             return "successRecruiter";
-            
 
         } else {
             return "successApplicant";
         }
-        
+
     }
 
     /**
-     * The registerUser() handles the logic for creating a new account.
-     * The method takes information entered by user and calls the createAccount method
-     * in the controller(AccHandler) which creates an account for the user by persisting the
-     * information in the database.
+     * The registerUser() handles the logic for creating a new account. The
+     * method takes information entered by user and calls the createAccount
+     * method in the controller(AccHandler) which creates an account for the
+     * user by persisting the information in the database.
      *
      * @return empty string because of jsf bug.
      */
     public String registerUser() {
         startConversation();
-        // check if the entered username and password is less than 1 character then throw an exception 
-        if (!(this.getRegisterUsername().length() > 0 && this.getRegisterPassword().length() > 0)) {   //Check if the name and the password has a size bigger then 0
+
+        if (!(this.getRegisterUsername().length() > 0 && this.getRegisterPassword().length() > 0)) {
             handleException(new Exception("The usernamne or the password needs to be atleast one character long"));
             return jsf22Bugfix();
         }
         try {
-            // call createAccount in the accHandler to create an account.
+
             accHandler.createAccount(this.getRegisterUsername(), sha256(this.getRegisterPassword()));
         } catch (NullPointerException | AccException ex) {
             handleException(ex);
@@ -169,25 +217,21 @@ public class AcctManager implements Serializable {
      */
     public String logoutUser() {
         startConversation();
-        //HttpSession session = SessionData.getSession();
-        //context.release();
         try {
             session.invalidate();
             request.logout();
-            
-            
+
         } catch (ServletException e) {
             handleException(e);
         }
         stopConversation();
-//session.invalidate();  //Invalidating the session will finally logout the user
+
         return "logout";
     }
 
-
     /**
-     * The sha256(string base) method takes a string as parameter hashes
-     * it after the sha256 algorithm.
+     * The sha256(string base) method takes a string as parameter hashes it
+     * after the sha256 algorithm.
      *
      * @param base the string that is to be hashed.
      * @return the hashed string.
