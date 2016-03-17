@@ -265,7 +265,7 @@ public class ApplicationManager implements Serializable {
 
     /**
      * Method to get saved email. Used by jsf requests during the render response phase.
-     * @return  Sring containing the email of the user.
+     * @return  String containing the email of the user.
      */
     public String getEmail() {
         return email;
