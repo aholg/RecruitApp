@@ -10,22 +10,22 @@
         </div>
             <br/>
             <br/><br/>
+            <center>
             <h3><u>APPLY FOR JOB HERE</u></h3>
             
 
             <h:form id="form">
-                First name: <h:inputText id="firstName"  value="#{ApplicationManager.firstName}"    size="60" required="true" label="firstName"> </h:inputText>  
+                First name: <br/><h:inputText id="firstName"  value="#{ApplicationManager.firstName}"    size="60" required="true" label="firstName"> </h:inputText>  
                 <br/><br/>
-                Last name: <h:inputText id="lastName"  value="#{ApplicationManager.lastName}"    size="60" required="true" label="lastName"> </h:inputText>  
+                Last name: <br/><h:inputText id="lastName"  value="#{ApplicationManager.lastName}"    size="60" required="true" label="lastName"> </h:inputText>  
                 <br/><br/>
-                E-mail: <h:inputText id="mail"  value="#{ApplicationManager.email}"    size="60" required="true" label="mail"> </h:inputText> 
+                E-mail:<br/> <h:inputText id="mail"  value="#{ApplicationManager.email}"    size="60" required="true" label="mail"> </h:inputText> 
                 <br/><br/>
-                Social security number: <h:inputText id="ssn"  value="#{ApplicationManager.ssn}"    size="60" required="true" label="ssn"> </h:inputText>
+                Social security number:<br/> <h:inputText id="ssn"  value="#{ApplicationManager.ssn}"    size="60" required="true" label="ssn"> </h:inputText>
                 <br/><br/>
-                Years of experience: <h:inputText id="yearsOfExperience"  value="#{ApplicationManager.yearsOfExperience}"    size="60" required="true" label="yearsOfExperience"> </h:inputText>
+                Years of experience:<br/> <h:inputText id="yearsOfExperience"  value="#{ApplicationManager.yearsOfExperience}"    size="60" required="true" label="yearsOfExperience"> </h:inputText>
                 <br/><br/>
                 Competence: 
-                <br></br>
                 
                 <h:selectManyCheckbox value="#{ApplicationManager.competence}">
                     <f:selectItem itemValue="1" itemLabel="Korvgrillning" /><br></br>
@@ -36,14 +36,14 @@
                 
 
                 <br/><br/>
-                Start date: <h:inputText id="startDate"  value="#{ApplicationManager.startDate}"    size="60" required="true" label="startDate"> </h:inputText>
+                Start date:<br/> <h:inputText id="startDate"  value="#{ApplicationManager.startDate}"    size="60" required="true" label="startDate"> </h:inputText>
                 <br/><br/>
-                End date: <h:inputText id="endDate"  value="#{ApplicationManager.endDate}"    size="60" required="true" label="endDate"> </h:inputText>
+                End date:<br/> <h:inputText id="endDate"  value="#{ApplicationManager.endDate}"    size="60" required="true" label="endDate"> </h:inputText>
                 <br/><br/>
-                Description: <h:inputText id="descriptionText"  value="#{ApplicationManager.description}"    size="60" required="true" label="descriptionText"> </h:inputText>
-                <br/><br/>
+                
                 <h:commandButton value="Submit" action="#{ApplicationManager.saveApplication()}" />
             </h:form>
+            </center>
             <br/><br/>
             
         

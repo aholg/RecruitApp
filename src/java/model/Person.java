@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
 public class Person implements PersonDTO, Serializable {
     @Size(min=1)
     private String name;
-    @Pattern(regexp = "\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])-\\d{4}")
+    @Pattern(regexp = "\\d{4}\\/(0?[1-9]|1[012])\\/(0?[1-9]|[12][0-9]|3[01])-\\d{4}")
     private String ssn;
     @Pattern(regexp = "[a-z0-9]+@[a-z0-9]+\\.(com|net|se)")
     private String email;

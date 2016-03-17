@@ -25,34 +25,39 @@ public class ApplyHandler {
 
     @PersistenceContext(unitName = "RecruitAppPU")
     private EntityManager em;
-    
+
     /**
      * Creates a new application to be stored in the database.
-     * @param person    Person object to be associated with the application.
-     * @param yearsOfExperience An int containing the years of experience of the person.
-     * @param competences   An array that contains indexes of competences.
+     *
+     * @param person Person object to be associated with the application.
+     * @param yearsOfExperience An int containing the years of experience of the
+     * person.
+     * @param competences An array that contains indexes of competences.
      */
     public void saveApplication(Person person, int yearsOfExperience, String[] competences) {
-      
-        em.merge(person);
-        if(competences[0].equals("1")){
-           Competence competence= em.find(Competence.class, 2);
-           CompetenceProfile profile = new CompetenceProfile(yearsOfExperience, competence,person);
-           em.persist(profile);
-       
-        }
-        if(competences[1].equals("2")){
-           Competence competence= em.find(Competence.class, 2);
-           CompetenceProfile profile = new CompetenceProfile(yearsOfExperience, competence,person);
-           em.persist(profile);
-       
-        }
-        if(competences[0].equals("2")){
-           Competence competence= em.find(Competence.class, 2);
-           CompetenceProfile profile = new CompetenceProfile(yearsOfExperience, competence,person);
-           em.persist(profile);
-      
-        }
 
+        em.merge(person);
+        if (competences.length > 0) {
+            if (competences[0].equals("1")) {
+                Competence competence = em.find(Competence.class, 2);
+                CompetenceProfile profile = new CompetenceProfile(yearsOfExperience, competence, person);
+                em.persist(profile);
+                if (competences[1].equals("2")) {
+                    competence = em.find(Competence.class, 3);
+                    profile = new CompetenceProfile(yearsOfExperience, competence, person);
+                    em.persist(profile);
+
+                }
+
+            } else if (competences[0].equals("2")) {
+                Competence competence = em.find(Competence.class, 3);
+                CompetenceProfile profile = new CompetenceProfile(yearsOfExperience, competence, person);
+                em.persist(profile);
+
+            }
+        }else{
+            CompetenceProfile profile = new CompetenceProfile(yearsOfExperience, null, person);
+            em.persist(profile);
+        }
     }
 }
